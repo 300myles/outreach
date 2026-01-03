@@ -20,18 +20,21 @@ export const authConfig: NextAuthOptions = {
         console.log("password match", user)
         if (!user) return null
 
+        console.log("not using bcrypt in development")
+        const passwordMatch = credentials.password === "demo123" || user.password_hash === credentials.password
 
-        if (process.env.NODE_ENV_TEST !== "production") {
-          console.log("not using bcrypt in development")
-          const passwordMatch =
-          credentials.password === "demo123" || user.password_hash === credentials.password
+      if (!passwordMatch) return null;
+        
+        // if (process.env.NODE_ENV_TEST !== "production") {
+        //   console.log("not using bcrypt in development")
+        //   const passwordMatch = credentials.password === "demo123" || user.password_hash === credentials.password
 
-        if (!passwordMatch) return null;
-        } else if (process.env.NODE_ENV === "production") {
-          if (!user.password_hash) return null
-          const passwordMatch = await bcrypt.compare(credentials.password, user.password_hash)
-          if (!passwordMatch) return null
-        }
+        // if (!passwordMatch) return null;
+        // } else if (process.env.NODE_ENV === "production") {
+        //   if (!user.password_hash) return null
+        //   const passwordMatch = await bcrypt.compare(credentials.password, user.password_hash)
+        //   if (!passwordMatch) return null
+        // }
         
 
         return {
