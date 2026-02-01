@@ -3,6 +3,7 @@ import type { NextAuthOptions } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { connectDB } from "./db"
 import { User } from "./models"
+import "dotenv/config";
 // import bcrypt from "bcryptjs"
 
 export const authConfig: NextAuthOptions = {

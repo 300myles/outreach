@@ -1,6 +1,7 @@
 import { getToken } from "next-auth/jwt"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import "dotenv/config";
 
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl
@@ -10,7 +11,7 @@ export async function proxy(req: NextRequest) {
   const userRole = token?.role
 
   const publicRoutes = ["/auth/login", "/auth/register", "/"]
-  if (publicRoutes.includes(pathname)) return NextResponse.next()
+  if (publicRoutes.includes(pathname) || pathname === "/") return NextResponse.next()
 
   if (!isLoggedIn) return NextResponse.redirect(new URL("/auth/login", req.url))
 

@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import "dotenv/config";
 
 // User Schema
 const userSchema = new mongoose.Schema(
@@ -211,7 +212,9 @@ const scraperJobSchema = new mongoose.Schema(
     },
     location: {
       type: String,
-      required: true,
+    },
+    country: {
+      type: String,
     },
     status: {
       type: String,
@@ -232,40 +235,69 @@ const scraperJobSchema = new mongoose.Schema(
 )
 
 // Scraped Lead Schema (temporary storage before import)
-const scrapedLeadSchema = new mongoose.Schema(
-  {
-    scraper_job_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "ScraperJob",
-      required: true,
-    },
-    user_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    business_name: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    email: String,
-    phone: String,
-    company: String,
-    website: String,
-    industry: String,
-    location: String,
-    notes: String,
-    imported: {
-      type: Boolean,
-      default: false,
-    },
+// const scrapedLeadSchema = new mongoose.Schema(
+//   {
+//     scraper_job_id: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: "ScraperJob",
+//       required: true,
+//     },
+//     user_id: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: "User",
+//       required: true,
+//     },
+//     business_name: {
+//       type: String,
+//       required: true,
+//     },
+//     name: {
+//       type: String,
+//       required: true,
+//     },
+//     email: String,
+//     phone: String,
+//     company: String,
+//     website: String,
+//     industry: String,
+//     location: String,
+//     notes: String,
+//     imported: {
+//       type: Boolean,
+//       default: false,
+//     },
+//   },
+//   { timestamps: true },
+// )
+
+const scrapedLeadSchema = new mongoose.Schema({
+  scraper_job_id: { type: mongoose.Schema.Types.ObjectId, ref: "ScraperJob" },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  name: String,
+  email: String, // Primary email
+  secondary_emails: [String], // Extra emails found
+  phone: String,
+  website: String,
+  location: String,
+  industry: String,
+  
+  // New AI-Enriched Fields
+  description: String,
+  social_links: {
+    linkedin: String,
+    twitter: String,
+    facebook: String,
+    instagram: String
   },
-  { timestamps: true },
-)
+  stats: {
+    estimated_traffic: String,
+    employee_count: String,
+    years_in_business: String
+  },
+  ai_confidence_score: Number, // 0-100% how sure the AI is about the email
+  
+  imported: { type: Boolean, default: false },
+}, { timestamps: true });
 
 const isDev = process.env.NODE_ENV === "development"
 

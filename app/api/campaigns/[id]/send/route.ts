@@ -4,6 +4,7 @@ import { Campaign, Lead, SenderAccount, EmailLog } from "@/lib/models";
 import { type NextRequest, NextResponse } from "next/server";
 import { Types } from "mongoose";
 import nodemailer from "nodemailer";
+import "dotenv/config";
 
 export async function POST(
   req: NextRequest,
