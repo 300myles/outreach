@@ -9,13 +9,10 @@ import { Badge } from "@/components/ui/badge";
 import {
   Loader2,
   Upload,
-  ExternalLink,
   Globe,
   Facebook,
   Linkedin,
-  Twitter,
   Instagram,
-  Bot,
   Edit,
 } from "lucide-react";
 import { useParams } from "next/navigation";

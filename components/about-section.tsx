@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { CheckCircle } from 'lucide-react'
 
 export function AboutSection() {

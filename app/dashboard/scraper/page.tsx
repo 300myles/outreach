@@ -3,11 +3,6 @@
 import {
   useState,
   useEffect,
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
 } from "react";
 import useSWR from "swr";
 import {
